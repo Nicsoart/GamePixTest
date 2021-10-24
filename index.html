@@ -9,7 +9,7 @@
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build35.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build36.json", {onProgress: UnityProgress});
     </script>
 
     <script type = "text/javascript" language = "javascript">
@@ -31,16 +31,7 @@
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
 
     <script>
-    //var LoadingPercentage = UnityLoader.progress;
-    alert(onProgress.progress);
-    //if (LoadingPercentage != 100) {
-      //GamePix.loading(LoadingPercentage);
-    //}
-    //else {
-      //GamePix.loaded().then(function () {
-        //alert(Loaded);
-      //})
-    //}
+      GamePix.loading(0);
     </script>
 
   </head>
@@ -78,37 +69,31 @@
       unityInstance.SendMessage('AdsManager', 'VerticalInitialization', 1);
     }
 
-    //function GPloading(LoadingPercentage)
-    //{
-      //if (LoadingPercentage != 100) {
-        //GamePix.loading(LoadingPercentage);
-      //}
-      //else {
-        //GamePix.loaded().then(function () {
-          //alert(Loaded);
-        //})
-      //}
-    //}
-
 // GamePix
     GamePix.pause = function () {
-      unityInstance.SendMessage('AdsManager', 'isPause', 0);
+      unityInstance.SendMessage('AdsManager', 'GPisPause', 0);
     }
 
     GamePix.resume = function () {
-      unityInstance.SendMessage('AdsManager', 'isPause', 1);
+      unityInstance.SendMessage('AdsManager', 'GPisPause', 1);
+    }
+
+    function GPUnityIsStarted() {
+      GamePix.loaded().then(function () {
+        unityInstance.SendMessage('AdsManager', 'GPShowStartAd');
+      })
     }
 
     function ShowGamePixInterstational() {
-      //GamePix.interstitialAd().then(function (res) {
-      //  if (res.success) {
-      //    // Log the success if you want
-      //    unityInstance.SendMessage('AdsManager', 'AdShowed');
-      //  } else {
-      //    // Log the error if you want
-      //    unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-      //  }
-      //});
+      GamePix.interstitialAd().then(function (res) {
+        if (res.success) {
+          // Log the success if you want
+          unityInstance.SendMessage('AdsManager', 'AdShowed');
+        } else {
+          // Log the error if you want
+          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+        }
+      });
     }
 
     function ShowGamePixRewardVideo() {

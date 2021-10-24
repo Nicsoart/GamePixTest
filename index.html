@@ -9,7 +9,7 @@
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build36.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build37.json", {onProgress: UnityProgress});
     </script>
 
     <script type = "text/javascript" language = "javascript">
@@ -29,10 +29,6 @@
     <script src="https://yandex.ru/ads/system/context.js" async></script>
     <!-- GamePix -->
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
-
-    <script>
-      GamePix.loading(0);
-    </script>
 
   </head>
   <body>
@@ -71,17 +67,30 @@
 
 // GamePix
     GamePix.pause = function () {
-      unityInstance.SendMessage('AdsManager', 'GPisPause', 0);
+      unityInstance.SendMessage('GamePixController', 'GPisPause', 0);
     }
 
     GamePix.resume = function () {
-      unityInstance.SendMessage('AdsManager', 'GPisPause', 1);
+      unityInstance.SendMessage('GamePixController', 'GPisPause', 1);
     }
 
-    function GPUnityIsStarted() {
+    document.addEventListener("DOMContentLoaded", function() {
+      GamePix.loading(0);
+      }
+    );
+
+    document.addEventListener("DOMContentLoaded", function(event)
+    {
+      window.onload = function() {
+        GamePix.loading(10);
+      };
+    });
+
+    function GPIsStarted() {
+      GamePix.loading(100);
       GamePix.loaded().then(function () {
-        unityInstance.SendMessage('AdsManager', 'GPShowStartAd');
-      })
+        unityInstance.SendMessage('GamePixController', 'GPShowStartAd');
+      });
     }
 
     function ShowGamePixInterstational() {

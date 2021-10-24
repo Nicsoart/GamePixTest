@@ -34,11 +34,12 @@
       let LoadingPercentage = UnityLoader.progress * 100;
       if (LoadingPercentage == 100) {
         GamePix.loaded().then(function () {
-          // Place here the code to reach your main screen
+          alert(Loaded);
         })
       }
       else {
         GamePix.loading(LoadingPercentage);
+        alert(LoadingPercentage);
       }
     }
     </script>

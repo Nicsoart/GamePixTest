@@ -22,6 +22,7 @@
     var text;
     var link;
     var LoadingPercentageIndex;
+    var LoadingPercentage;
     </script>
 
     <!-- Yandex.RTB -->
@@ -88,8 +89,10 @@
     });
 
     function LoadingIndex(LoadingPercentageIndex) {
-      let LoadingPercentage = LoadingPercentageIndex * 100;
+      if (LoadingPercentage != LoadingPercentageIndex)
+        LoadingPercentage = LoadingPercentageIndex;
       //GamePix.loading(LoadingPercentage);
+
       alert(LoadingPercentage);
       if (LoadingPercentage != 100)
         LoadingUP();

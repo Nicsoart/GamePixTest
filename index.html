@@ -21,6 +21,7 @@
 
     var text;
     var link;
+    var LoadingPercentage;
     </script>
 
     <!-- Yandex.RTB -->
@@ -36,9 +37,9 @@
       //GamePix.loading(LoadingPercentage);
     //}
     //else {
-      GamePix.loaded().then(function () {
-        alert(Loaded);
-      })
+      //GamePix.loaded().then(function () {
+        //alert(Loaded);
+      //})
     //}
     </script>
 
@@ -75,6 +76,18 @@
       document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'none';
 
       unityInstance.SendMessage('AdsManager', 'VerticalInitialization', 1);
+    }
+
+    function GPloading(LoadingPercentage)
+    {
+      if (LoadingPercentage != 100) {
+        GamePix.loading(LoadingPercentage);
+      }
+      else {
+        GamePix.loaded().then(function () {
+          alert(Loaded);
+        })
+      }
     }
 
 // GamePix

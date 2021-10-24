@@ -22,5 +22,5 @@ function UnityProgress(unityInstance, progress) {
   if (progress == 1)
     unityInstance.logo.style.display = unityInstance.progress.style.display = "none";
 
-  LoadingPercentage = progress * 100;
+    sessionStorage.setItem('loading', progress);
 }

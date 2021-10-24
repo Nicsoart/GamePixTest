@@ -30,16 +30,16 @@
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
 
     <script>
-    var LoadingPercentage = UnityLoader.progress;
-    alert(LoadingPercentage);
-    if (LoadingPercentage != 100) {
-      GamePix.loading(LoadingPercentage);
-    }
-    else {
+    //var LoadingPercentage = UnityLoader.progress;
+    //alert(LoadingPercentage);
+    //if (LoadingPercentage != 100) {
+      //GamePix.loading(LoadingPercentage);
+    //}
+    //else {
       GamePix.loaded().then(function () {
         alert(Loaded);
       })
-    }
+    //}
     </script>
 
   </head>

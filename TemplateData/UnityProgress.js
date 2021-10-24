@@ -1,5 +1,3 @@
-var LoadingPercentageUP;
-
 function UnityProgress(unityInstance, progress) {
   if (!unityInstance.Module)
     return;
@@ -24,9 +22,5 @@ function UnityProgress(unityInstance, progress) {
   if (progress == 1)
     unityInstance.logo.style.display = unityInstance.progress.style.display = "none";
 
-  LoadingPercentageUP = Math.floor(progress * 100);
-}
-
-function LoadingUP() {
-  LoadingIndex(LoadingPercentageUP);
+  LoadingPercentage = progress * 100;
 }

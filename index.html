@@ -31,7 +31,7 @@
 
     <script>
     window.onload = function loading() {
-      let LoadingPercentage = UnityLoader.UnityProgress * 100;
+      let LoadingPercentage = UnityProgress.progress * 100;
       if (LoadingPercentage == 100) {
         GamePix.loaded().then(function () {
           alert(Loaded);

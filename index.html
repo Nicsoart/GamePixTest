@@ -9,7 +9,7 @@
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build37.json");
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build37.json", {onProgress: UnityProgress});
     </script>
 
     <script type = "text/javascript" language = "javascript">
@@ -21,7 +21,7 @@
 
     var text;
     var link;
-    var LoadingPercentage;
+    var LoadingPercentageIndex;
     </script>
 
     <!-- Yandex.RTB -->
@@ -75,16 +75,24 @@
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      GamePix.loading(0);
+      //GamePix.loading(0);
+      LoadingUP();
       }
     );
 
     document.addEventListener("DOMContentLoaded", function(event)
     {
       window.onload = function() {
-        GamePix.loading(90);
+        //GamePix.loading(90);
       };
     });
+
+    function LoadingIndex(LoadingPercentageIndex) {
+      let LoadingPercentage = LoadingPercentageIndex * 100;
+      GamePix.loading(LoadingPercentage);
+      if (LoadingPercentage != 100)
+        LoadingUP();
+    }
 
     function GPIsStarted() {
       GamePix.loading(100);

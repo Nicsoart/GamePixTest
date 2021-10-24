@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | AdvertisingTest</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+    <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build35.json", {onProgress: UnityProgress});
+    </script>
+
+    <script type = "text/javascript" language = "javascript">
+    var fullscreenID = 'R-A-1324864-1';
+    var mobilefullscreenID = 'R-A-1324864-4';
+    var horizontalbannerID = 'R-A-1324864-2';
+    var mobilebannerID = 'R-A-1324864-5';
+    var rewardvideoID = 'R-A-1324864-3';
+
+    var text;
+    var link;
+    </script>
+
+    <!-- Yandex.RTB -->
+    <script>window.yaContextCb=window.yaContextCb||[]</script>
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+    <!-- GamePix -->
+    <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
+
+    <script>
+    window.onload = function loading() {
+      let LoadingPercentage = UnityLoader.progress * 100;
+      if (LoadingPercentage == 100) {
+        GamePix.loaded().then(function () {
+          // Place here the code to reach your main screen
+        })
+      }
+      else {
+        GamePix.loading(LoadingPercentage);
+      }
+    }
+    </script>
+
+  </head>
+  <body>
+    <div class="webgl-content">
+
+    <div id="unityContainer" style="position:relative; width: 100vw; height: 100vh"></div>
+
+      <!-- Full Screen -->
+    <div id="yandex_rtb_R-A-1324864-1" style="position: absolute; top: 16%; width: 100vw; height: 67vh"></div>
+
+    <!-- Mobile Full Screen -->
+    <div id="yandex_rtb_R-A-1324864-4" style="position: absolute; top: 16%; width: 100vw; height: 67vh"></div>
+
+    <!-- Horizontal Banner -->
+    <div id="yandex_rtb_R-A-1324864-2" style="position: absolute; bottom: 0;  width: 100vw; height: 10vh"></div>
+
+    <!-- Mobile Banner -->
+    <div id="yandex_rtb_R-A-1324864-5" style="position: absolute;  bottom: 0; width: 100vw; height: 10vh"></div>
+
+    <!-- Reward Video -->
+    <div id="yandex_rtb_R-A-1324864-3" style="position: absolute; top: 16%; width: 100vw; height: 67vh"></div>
+
+    </div>
+
+    <script type = "text/javascript" language = "javascript">
+// Initialization
+    function AdsInitialization() {
+      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'none';
+
+      unityInstance.SendMessage('AdsManager', 'VerticalInitialization', 1);
+    }
+
+// GamePix
+    GamePix.pause = function () {
+      unityInstance.SendMessage('AdsManager', 'isPause', 0);
+    }
+
+    GamePix.resume = function () {
+      unityInstance.SendMessage('AdsManager', 'isPause', 1);
+    }
+
+    function ShowGamePixInterstational() {
+      GamePix.interstitialAd().then(function (res) {
+        if (res.success) {
+          // Log the success if you want
+          unityInstance.SendMessage('AdsManager', 'AdShowed');
+        } else {
+          // Log the error if you want
+          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+        }
+      });
+    }
+
+    function ShowGamePixRewardVideo() {
+      GamePix.rewardAd().then(function (res) {
+        if (res.success) {
+          unityInstance.SendMessage('AdsManager', 'GetReward');
+        } else {
+          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+        }
+      });
+    }
+
+// Full Screen
+    function ShowFullScreen() {
+      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + fullscreenID,
+        blockId: fullscreenID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
+        },
+        onRender: (data) => {
+          unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
+        }
+      })
+    }
+
+    function ShowMobileFullScreen() {
+      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + mobilefullscreenID,
+        blockId: mobilefullscreenID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
+        },
+        onRender: (data) => {
+          unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
+        }
+      })
+    }
+
+    function CloseFullScreen() {
+      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'none';
+    }
+
+    function CloseMobileFullScreen() {
+      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'none';
+    }
+
+// Banner
+    function ShowBanner() {
+      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + horizontalbannerID,
+        blockId: horizontalbannerID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseBanner');
+        }
+      })
+    }
+
+    function ShowMobileBanner() {
+      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + mobilebannerID,
+        blockId: mobilebannerID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseBanner');
+        }
+      })
+    }
+
+    function CloseBanner() {
+      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'none';
+    }
+
+    function CloseMobileBanner() {
+      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
+    }
+
+// Custon Reward Video
+    function ShowCustomRewardVideo() {
+      document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + rewardvideoID,
+        blockId: rewardvideoID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseCustomRewardVideo');
+        },
+        onRender: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CustomRewardVideoLoaded');
+        }
+      })
+    }
+
+    function CloseCustomRewardVideo() {
+      document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'none';
+    }
+
+    function ShowMobileCustomRewardVideo() {
+      document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'block';
+      Ya.Context.AdvManager.render({
+        renderTo: 'yandex_rtb_' + rewardvideoID,
+        blockId: rewardvideoID,
+        onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseMobileCustomRewardVideo');
+        },
+        onRender: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CustomRewardVideoLoaded');
+        }
+      })
+    }
+
+    function CloseMobileCustomRewardVideo() {
+      document.getElementById('yandex_rtb_' + rewardvideoID).style.display = 'none';
+    }
+  </script>
+
+  </body>
+</html>

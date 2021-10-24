@@ -10,7 +10,11 @@
     <script src="Build/UnityLoader.js"></script>
     <script>
       var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build37.json", {onProgress: UnityProgress});
-      GamePixLoading();
+      function GamePixLoading() {
+        console.log(LoadingPercentage);
+        if (LoadingPercentage != 100)
+          GamePixLoading();
+      };
     </script>
 
     <script type = "text/javascript" language = "javascript">
@@ -87,13 +91,6 @@
         //GamePix.loading(90);
       };
     });
-
-    function GamePixLoading() {
-      //console.log(LoadingPercentage);
-      console.log(LoadingPercentage);
-      if (LoadingPercentage != 100)
-        GamePixLoading();
-    }
 
     function GPIsStarted() {
       GamePix.loading(100);

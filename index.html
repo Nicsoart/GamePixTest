@@ -34,7 +34,7 @@
     function GamePixLoading() {
       console.log(LoadingPercentage);
       if (LoadingPercentage != 100)
-        return;
+        GamePixLoading();
     };
     window.onload = GamePixLoading();
   </script>

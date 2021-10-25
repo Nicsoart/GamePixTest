@@ -10,12 +10,6 @@
     <script src="Build/UnityLoader.js"></script>
     <script>
       var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build37.json", {onProgress: UnityProgress});
-      function GamePixLoading() {
-        window.console.log(LoadingPercentage);
-        if (LoadingPercentage != 100)
-          return;
-      };
-      window.onload = GamePixLoading();
     </script>
 
     <script type = "text/javascript" language = "javascript">
@@ -35,6 +29,15 @@
     <script src="https://yandex.ru/ads/system/context.js" async></script>
     <!-- GamePix -->
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
+
+    <script>
+    function GamePixLoading() {
+      window.console.log(LoadingPercentage);
+      if (LoadingPercentage != 100)
+        return;
+    };
+    window.onload = GamePixLoading();
+  </script>
 
   </head>
   <body>

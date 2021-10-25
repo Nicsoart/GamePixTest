@@ -22,5 +22,5 @@ function UnityProgress(unityInstance, progress) {
   if (progress == 1)
     unityInstance.logo.style.display = unityInstance.progress.style.display = "none";
 
-    unityInstance.window.x.prop = 100 * progress;
+    unityInstance.x.prop = 100 * progress;
 }

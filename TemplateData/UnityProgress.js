@@ -1,3 +1,6 @@
+var loadvalue1 = 0;
+var loadvalue2 = 0;
+
 function UnityProgress(unityInstance, progress) {
   if (!unityInstance.Module)
     return;
@@ -22,5 +25,10 @@ function UnityProgress(unityInstance, progress) {
   if (progress == 1)
     unityInstance.logo.style.display = unityInstance.progress.style.display = "none";
 
-    unityInstance.x.prop = 100 * progress;
+  loadvalue1 = 100 * progress;
+  if (loadvalue1 > loadvalue2)
+  {
+    loadvalue2 = loadvalue1;
+    console.log(loadvalue2);
+  }
 }

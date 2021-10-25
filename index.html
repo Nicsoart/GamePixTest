@@ -21,7 +21,7 @@
 
     var text;
     var link;
-    var LoadingPercentage = 0;
+    var LoadingPercentage;
     </script>
 
     <!-- Yandex.RTB -->
@@ -31,9 +31,9 @@
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
 
     <script type="text/javascript">
-      if (LoadingPercentage > 0)
+      if (window.LoadingPercentage > 0)
       {
-        console.log(LoadingPercentage);
+        console.log(window.LoadingPercentage);
       }
   </script>
 

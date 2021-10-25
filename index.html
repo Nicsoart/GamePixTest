@@ -21,7 +21,6 @@
 
     var text;
     var link;
-    var LoadingPercentage;
     </script>
 
     <!-- Yandex.RTB -->
@@ -31,11 +30,24 @@
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
 
     <script type="text/javascript">
-      if (window.LoadingPercentage > 0)
-      {
-        console.log(window.LoadingPercentage);
+    const x = {};
+    let value = 0;
+
+    function fn(oldValue, newValue) {
+      if (newValue != oldValue)
+        GamePix.loading(newValue);
+    }
+
+    Object.defineProperty(x, "prop", {
+      get() {
+        return value
+      },
+      set(val) {
+        fn(value, val);
+        value = val;
       }
-  </script>
+    });
+    </script>
 
   </head>
   <body>

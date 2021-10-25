@@ -29,6 +29,6 @@ function UnityProgress(unityInstance, progress) {
   if (loadvalue1 > loadvalue2)
   {
     loadvalue2 = loadvalue1;
-    console.log(loadvalue2);
+    GPLoading(loadvalue2);
   }
 }

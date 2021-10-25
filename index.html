@@ -21,6 +21,7 @@
 
     var text;
     var link;
+    var loadvalue;
     </script>
 
     <!-- Yandex.RTB -->
@@ -88,6 +89,10 @@
         //GamePix.loading(90);
       };
     });
+
+    function GPLoading(loadvalue) {
+      GamePix.loading(loadvalue);
+    }
 
     function GPIsStarted() {
       GamePix.loading(100);

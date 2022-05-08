@@ -1,6 +1,3 @@
-var loadvalue1 = 0;
-var loadvalue2 = 0;
-
 function UnityProgress(unityInstance, progress) {
   if (!unityInstance.Module)
     return;
@@ -9,7 +6,7 @@ function UnityProgress(unityInstance, progress) {
     unityInstance.logo.className = "logo " + unityInstance.Module.splashScreenStyle;
     unityInstance.container.appendChild(unityInstance.logo);
   }
-  if (!unityInstance.progress) {
+  if (!unityInstance.progress) {    
     unityInstance.progress = document.createElement("div");
     unityInstance.progress.className = "progress " + unityInstance.Module.splashScreenStyle;
     unityInstance.progress.empty = document.createElement("div");
@@ -24,11 +21,4 @@ function UnityProgress(unityInstance, progress) {
   unityInstance.progress.empty.style.width = (100 * (1 - progress)) + "%";
   if (progress == 1)
     unityInstance.logo.style.display = unityInstance.progress.style.display = "none";
-
-  loadvalue1 = 100 * progress;
-  if (loadvalue1 > loadvalue2)
-  {
-    loadvalue2 = loadvalue1;
-    GPLoading(loadvalue2);
-  }
 }

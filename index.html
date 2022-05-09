@@ -3,169 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Extreme Drift Racing</title>
+    <title>Unity WebGL Player | Pfatform Shooter</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build10.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build9.json", {onProgress: UnityProgress});
     </script>
-
-
-    <script type = "text/javascript" language = "javascript">
-    var ysdk;
-    var fullscreenID = 'R-A-1271109-5';
-    var mobilefullscreenID = 'R-A-1271109-6';
-    var horizontalbannerID = 'R-A-1658534-1';
-    var mobilebannerID = 'R-A-1271109-8';
-    </script>
-
-    <!-- Yandex.RTB -->
-    <script>window.yaContextCb=window.yaContextCb||[]</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script>
-
-    <!-- GamePix -->
-    <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
-
   </head>
   <body>
-
     <div class="webgl-content">
-
-    <div id="unityContainer" style="position:relative; width: 100vw; height: 100vh"></div>
-
-      <!-- Full Screen -->
-    <div id="yandex_rtb_R-A-1271109-5" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
-
-    <!-- Mobile Full Screen -->
-    <div id="yandex_rtb_R-A-1271109-6" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
-
-    <!-- Horizontal Banner -->
-    <div id="yandex_rtb_R-A-1658534-1" style="position: absolute; bottom: 0;  width: 100vw; height: 10vh; display: none"></div>
-
-    <!-- Mobile Banner -->
-    <div id="yandex_rtb_R-A-1271109-8" style="position: absolute;  bottom: 0; width: 100vw; height: 10vh; display: none"></div>
-
+      <div id="unityContainer" style="width: 960px; height: 600px"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+        <div class="title">Pfatform Shooter</div>
+      </div>
     </div>
-
-    <script type = "text/javascript" language = "javascript">
-
-// Initialization
-    function VerticalInitialization() {
-      unityInstance.SendMessage('PlatformManager', 'VerticalInitialization', 0);
-    }
-
-    // GamePix
-    GamePix.pause = function () {
-      unityInstance.SendMessage('GamePixController', 'GPisPause', 0);
-    }
-
-    GamePix.resume = function () {
-      unityInstance.SendMessage('GamePixController', 'GPisPause', 1);
-    }
-
-    function GPLoading(loadvalue) {
-      GamePix.loading(loadvalue);
-    }
-
-    function GPIsStarted() {
-      GamePix.loading(100);
-      GamePix.loaded().then(function () {
-        unityInstance.SendMessage('GamePixController', 'GPShowStartAd');
-      });
-    }
-
-    function ShowGamePixInterstational() {
-      GamePix.interstitialAd().then(function (res) {
-        if (res.success) {
-          // Log the success if you want
-          unityInstance.SendMessage('AdsManager', 'AdShowed');
-        } else {
-          // Log the error if you want
-          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-        }
-      });
-    }
-
-    function ShowGamePixRewardVideo() {
-      GamePix.rewardAd().then(function (res) {
-        if (res.success) {
-          unityInstance.SendMessage('AdsManager', 'GetReward');
-        } else {
-          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-        }
-      });
-    }
-
-// Full Screen
-    function ShowFullScreen() {
-      //document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + fullscreenID,
-        //blockId: fullscreenID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
-        //},
-        //onRender: (data) => {
-          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
-        //}
-      //})
-    }
-
-    function ShowMobileFullScreen() {
-      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + mobilefullscreenID,
-        //blockId: mobilefullscreenID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
-        //},
-        //onRender: (data) => {
-          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
-        //}
-      //})
-    }
-
-    function CloseFullScreen() {
-      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'none';
-    }
-
-    function CloseMobileFullScreen() {
-      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'none';
-    }
-
-// Banner
-    function ShowBanner() {
-      //document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + horizontalbannerID,
-        //blockId: horizontalbannerID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseBanner');
-        //}
-      //})
-    }
-
-    function ShowMobileBanner() {
-      //document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + mobilebannerID,
-        //blockId: mobilebannerID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseBanner');
-        //}
-      //})
-    }
-
-    function CloseBanner() {
-      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'none';
-    }
-
-    function CloseMobileBanner() {
-      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
-    }
-  </script>
-
   </body>
 </html>

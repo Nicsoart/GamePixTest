@@ -3,23 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Space Adventure</title>
+    <title>Unity WebGL Player | Knife and Hit</title>
 
     <!-- GamePix -->
     <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
 
   </head>
   <body style="text-align: center">
-    <canvas id="unity-canvas" style="width: 55vh; height: 97vh; max-width: 100vw; max-height: 176vw"></canvas>
+    <canvas id="unity-canvas" style="width: 960px; height: 600px; background: #231F20"></canvas>
     <script src="Build/Build9.loader.js"></script>
     <script>
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Build9.data",
-        frameworkUrl: "Build/Build9.framework.js",
-        codeUrl: "Build/Build9.wasm",
+        dataUrl: "Build/Build9.data.br",
+        frameworkUrl: "Build/Build9.framework.js.br",
+        codeUrl: "Build/Build9.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "Nicso Games",
-        productName: "Space Adventure",
+        productName: "Knife and Hit",
         productVersion: "1.0",
       });
     </script>
@@ -175,6 +175,6 @@
     }
 
   </script>
-
+    
   </body>
 </html>

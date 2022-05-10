@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | Space Adventure</title>
+
+    <!-- GamePix -->
+    <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
+
   </head>
   <body style="text-align: center">
     <canvas id="unity-canvas" style="width: 1000px; height: 1820px; background: #FFFFFF"></canvas>
@@ -19,5 +23,158 @@
         productVersion: "1.0",
       });
     </script>
+
+    <script type = "text/javascript" language = "javascript">
+
+// Initialization
+    function VerticalInitialization() {
+      unityInstance.SendMessage('PlatformManager', 'VerticalInitialization', 1);
+    }
+
+    function ResizeForMobile() {
+      document.getElementById('unityContainer').style.width = window.innerWidth + "px";
+      document.getElementById('unityContainer').style.height = window.innerHeight + "px";
+      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.height = window.innerWidth + "px";
+      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.height = ((window.innerHeight * 7) / 10) + "px";
+      //document.getElementById('yandex_rtb_' + mobilebannerID).style.height = window.innerWidth + "px";
+      //document.getElementById('yandex_rtb_' + mobilebannerID).style.height = (window.innerHeight / 10) + "px";
+    }
+
+    // GamePix
+    GamePix.pause = function () {
+      unityInstance.SendMessage('GamePixController', 'GPisPause', 0);
+    }
+
+    GamePix.resume = function () {
+      unityInstance.SendMessage('GamePixController', 'GPisPause', 1);
+    }
+
+    function GPLoading(loadvalue) {
+      GamePix.loading(loadvalue);
+    }
+
+    function GPIsStarted() {
+      GamePix.loading(100);
+      GamePix.loaded().then(function () {
+        unityInstance.SendMessage('GamePixController', 'GPShowStartAd');
+      });
+    }
+
+    function ShowGamePixInterstational() {
+      GamePix.interstitialAd().then(function (res) {
+        if (res.success) {
+          // Log the success if you want
+          unityInstance.SendMessage('AdsManager', 'AdShowed');
+        } else {
+          // Log the error if you want
+          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+        }
+      });
+    }
+
+    function ShowGamePixRewardVideo() {
+      GamePix.rewardAd().then(function (res) {
+        if (res.success) {
+          unityInstance.SendMessage('AdsManager', 'GetReward');
+        } else {
+          unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+        }
+      });
+    }
+
+// Full Screen
+    function ShowFullScreen() {
+      //document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'block';
+      //Ya.Context.AdvManager.render({
+        //renderTo: 'yandex_rtb_' + fullscreenID,
+        //blockId: fullscreenID,
+        //onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
+        //},
+        //onRender: (data) => {
+          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
+        //}
+      //})
+    }
+
+    function ShowMobileFullScreen() {
+      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'block';
+      //Ya.Context.AdvManager.render({
+        //renderTo: 'yandex_rtb_' + mobilefullscreenID,
+        //blockId: mobilefullscreenID,
+        //onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
+        //},
+        //onRender: (data) => {
+          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
+        //}
+      //})
+    }
+
+    function CloseFullScreen() {
+      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'none';
+    }
+
+    function CloseMobileFullScreen() {
+      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'none';
+    }
+
+// Banner
+    function ShowBanner() {
+      //document.getElementById('yandex_rtb_' + leftverticalbannerID).style.display = 'block';
+      //document.getElementById('yandex_rtb_' + rightverticalbannerID).style.display = 'block';
+      //document.getElementById('yandex_rtb_' + leftverticalbannerID).style.width = ((window.innerWidth - (window.innerHeight * 0.55)) / 2) + "px";
+      //document.getElementById('yandex_rtb_' + rightverticalbannerID).style.width = ((window.innerWidth - (window.innerHeight * 0.55)) / 2) + "px";
+
+      //Ya.Context.AdvManager.render({
+        //renderTo: 'yandex_rtb_' + leftverticalbannerID,
+        //blockId: leftverticalbannerID,
+        //onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseBanner');
+        //}
+      //});
+      //Ya.Context.AdvManager.render({
+        //renderTo: 'yandex_rtb_' + rightverticalbannerID,
+        //blockId: rightverticalbannerID,
+        //onError: (data) => {
+          //unityInstance.SendMessage('AdsManager', 'CloseBanner');
+        //}
+      //})
+    }
+
+    function ShowMobileBanner() {
+      //document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'block';
+      //Ya.Context.AdvManager.render({
+        //renderTo: 'yandex_rtb_' + mobilebannerID,
+        //blockId: mobilebannerID,
+        //onError: (data) => {
+          unityInstance.SendMessage('AdsManager', 'CloseBanner');
+        //}
+      //})
+    }
+
+    function CloseBanner() {
+      document.getElementById('yandex_rtb_' + leftverticalbannerID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + rightverticalbannerID).style.display = 'none';
+    }
+
+    function CloseMobileBanner() {
+      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
+    }
+
+    //Vertical Resize
+    document.addEventListener("DOMContentLoaded", function(event)
+    {
+    window.onresize = function() {
+        ResizeBanners();
+        };
+    });
+
+    function ResizeBanners() {
+      unityInstance.SendMessage('AdsManager', 'ResizeBanners');
+    }
+
+  </script>
+    
   </body>
 </html>

@@ -3,18 +3,18 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Break It </title>
+    <title>Unity WebGL Player | Hyper-Casual Game</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build6.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build3.json", {onProgress: UnityProgress});
     </script>
 
 
     <script type = "text/javascript" language = "javascript">
-    var ysdk;
+    var AdLoaded = true;
     var fullscreenID = 'R-A-1272944-10';
     var mobilefullscreenID = 'R-A-1272944-13';
     var mobilebannerID = 'R-A-1272944-14';
@@ -98,15 +98,21 @@
     }
 
     function ShowGamePixInterstational() {
-      GamePix.interstitialAd().then(function (res) {
-        if (res.success) {
-          // Log the success if you want
-          unityInstance.SendMessage('AdsManager', 'AdShowed');
-        } else {
-          // Log the error if you want
-          //unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-        }
-      });
+      if (AdLoaded)
+      {
+        AdLoaded = false;
+        GamePix.interstitialAd().then(function (res) {
+          if (res.success) {
+            // Log the success if you want
+            unityInstance.SendMessage('AdsManager', 'AdShowed');
+            AdLoaded = true;
+          } else {
+            AdLoaded = true;
+            // Log the error if you want
+            //unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
+          }
+        })
+      }
     }
 
     function ShowGamePixRewardVideo() {

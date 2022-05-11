@@ -3,183 +3,83 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Bighead Run</title>
-    <link rel="shortcut icon" href="TemplateData/favicon.ico">
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="Build/UnityLoader.js"></script>
-    <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build25.json", {onProgress: UnityProgress});
-    </script>
+    <title>Unity WebGL Player | Knife and Hit</title>
 
-
+    <script src="https://yandex.ru/games/sdk/v2"></script>
     <script type = "text/javascript" language = "javascript">
-    var AdLoaded = true;
-    var fullscreenID = 'R-A-1271109-5';
-    var mobilefullscreenID = 'R-A-1271109-6';
-    var horizontalbannerID = 'R-A-1658534-1';
-    var mobilebannerID = 'R-A-1271109-8';
+    var ysdk;
     </script>
-
-    <!-- Yandex.RTB -->
-    <script>window.yaContextCb=window.yaContextCb||[]</script>
-    <script src="https://yandex.ru/ads/system/context.js" async></script>
-
-    <!-- GamePix -->
-    <script src="https://integration.gamepix.com/sdk/v3/gamepix.sdk.js"></script>
+    <script>
+      YaGames.init( { adv: { onAdvClose: wasShown => { console.info('adv closed!'); } } })
+      .then(ysdk_local => {
+          ysdk = ysdk_local;
+      });
+    </script>
 
   </head>
-  <body>
-
-    <div class="webgl-content">
-
-    <div id="unityContainer" style="position:relative; width: 100vw; height: 100vh"></div>
-
-      <!-- Full Screen -->
-    <div id="yandex_rtb_R-A-1271109-5" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
-
-    <!-- Mobile Full Screen -->
-    <div id="yandex_rtb_R-A-1271109-6" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
-
-    <!-- Horizontal Banner -->
-    <div id="yandex_rtb_R-A-1658534-1" style="position: absolute; bottom: 0;  width: 100vw; height: 10vh; display: none"></div>
-
-    <!-- Mobile Banner -->
-    <div id="yandex_rtb_R-A-1271109-8" style="position: absolute;  bottom: 0; width: 100vw; height: 10vh; display: none"></div>
-
-    </div>
+  <body style="text-align: center">
+    <canvas id="unity-canvas" style="width: 176vh; height: 97vh; max-width: 100vw; max-height: 55vw; background: #FFFFFF"></canvas>
+    <script src="Build/Build1.loader.js"></script>
+    <script>
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/Build1.data.gz",
+        frameworkUrl: "Build/Build1.framework.js.gz",
+        codeUrl: "Build/Build1.wasm.gz",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "Nicso Game",
+        productName: "Knife and Hit",
+        productVersion: "1.0",
+      });
+    </script>
 
     <script type = "text/javascript" language = "javascript">
 
-// Initialization
-    function VerticalInitialization() {
-      unityInstance.SendMessage('PlatformManager', 'VerticalInitialization', 0);
-    }
 
-    function PlayerInitialization() {
-      let userLang = navigator.language || navigator.userLanguage;
-      if (userLang == null || userLang == "")
-        userLang = "en";
-      unityInstance.SendMessage('PlayerManager', 'GetPlayerLanguage', userLang);
-      unityInstance.SendMessage('PlayerManager', 'PlayerAuthorized');
-    }
+     function YandexAdsInitialization(){
 
-    // GamePix
-    GamePix.pause = function () {
-      unityInstance.SendMessage('GamePixController', 'GPisPause', 0);
-    }
+     }
 
-    GamePix.resume = function () {
-      unityInstance.SendMessage('GamePixController', 'GPisPause', 1);
-    }
-
-    function GPLoading(loadvalue) {
-      GamePix.loading(loadvalue);
-    }
-
-    function GPIsStarted() {
-      GamePix.loading(100);
-      GamePix.loaded().then(function () {
-        unityInstance.SendMessage('GamePixController', 'GPShowStartAd');
+     function ShowInterstational() {
+          console.log("Show inters");
+          ysdk.adv.showFullscreenAdv({
+          callbacks: {
+              onClose: function(wasShown) {
+                  console.info('Inters adv closed!');
+                  unityInstance.SendMessage('AdsManager', 'ShowedInterstationalHandler');
+              },
+              onError: function(error) {
+                  console.info('Inters adv error!');
+                  unityInstance.SendMessage('AdsManager', 'ErrorInterstationalHandler');
+              }
+         }
       });
-    }
+     }
 
-    function ShowGamePixInterstational() {
-      if (AdLoaded)
-      {
-        AdLoaded = false;
-        GamePix.interstitialAd().then(function (res) {
-          if (res.success) {
-            // Log the success if you want
-            unityInstance.SendMessage('AdsManager', 'AdShowed');
-            AdLoaded = true;
-          } else {
-            AdLoaded = true;
-            // Log the error if you want
-            //unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-          }
-        })
-      }
-    }
-
-    function ShowGamePixRewardVideo() {
-      GamePix.rewardAd().then(function (res) {
-        if (res.success) {
-          unityInstance.SendMessage('AdsManager', 'GetReward');
-        } else {
-          //unityInstance.SendMessage('AdsManager', 'TryToLoadFullScreen');
-        }
-      });
-    }
-
-// Full Screen
-    function ShowFullScreen() {
-      //document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + fullscreenID,
-        //blockId: fullscreenID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
-        //},
-        //onRender: (data) => {
-          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
-        //}
-      //})
-    }
-
-    function ShowMobileFullScreen() {
-      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + mobilefullscreenID,
-        //blockId: mobilefullscreenID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseFullScreen');
-        //},
-        //onRender: (data) => {
-          //unityInstance.SendMessage('AdsManager', 'FullScreenLoaded');
-        //}
-      //})
-    }
-
-    function CloseFullScreen() {
-      document.getElementById('yandex_rtb_' + fullscreenID).style.display = 'none';
-    }
-
-    function CloseMobileFullScreen() {
-      document.getElementById('yandex_rtb_' + mobilefullscreenID).style.display = 'none';
-    }
-
-// Banner
-    function ShowBanner() {
-      //document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + horizontalbannerID,
-        //blockId: horizontalbannerID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseBanner');
-        //}
-      //})
-    }
-
-    function ShowMobileBanner() {
-      //document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'block';
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + mobilebannerID,
-        //blockId: mobilebannerID,
-        //onError: (data) => {
-          unityInstance.SendMessage('AdsManager', 'CloseBanner');
-        //}
-      //})
-    }
-
-    function CloseBanner() {
-      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'none';
-    }
-
-    function CloseMobileBanner() {
-      document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
-    }
-  </script>
+     function ShowRewardVideo()
+     {
+          console.log("Show reward");
+          ysdk.adv.showRewardedVideo({
+              callbacks: {
+                  onOpen: () => {
+                      console.log('Video ad open.');
+                      unityInstance.SendMessage('AdsManager', 'OnOpenRewardHandler');
+                  },
+                  onRewarded: () => {
+                      console.log('Rewarded!');
+                      unityInstance.SendMessage('AdsManager', 'OnRewardedHandler');
+                  },
+                  onClose: () => {
+                      console.log('Video ad closed.');
+                      unityInstance.SendMessage('AdsManager', 'OnCloseRewardHandler');
+                  },
+                  onError: (e) => {
+                      console.log('Error while open video ad:', e);
+                      unityInstance.SendMessage('AdsManager', 'OnErrorRewardHandler');
+                  }
+              }
+          })
+     }
+     </script>
 
   </body>
 </html>

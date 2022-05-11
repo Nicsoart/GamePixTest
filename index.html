@@ -3,23 +3,22 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Slime Simulator</title>
+    <title>Unity WebGL Player | Tower Defense</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="TemplateData/UnityProgress.js"></script>
     <script src="Build/UnityLoader.js"></script>
     <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build51.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/Build17.json", {onProgress: UnityProgress});
     </script>
 
 
     <script type = "text/javascript" language = "javascript">
     var AdLoaded = true;
-    var fullscreenID = 'R-A-1272944-10';
-    var mobilefullscreenID = 'R-A-1272944-13';
-    var mobilebannerID = 'R-A-1272944-14';
-    var leftverticalbannerID = 'R-A-1272944-8';
-    var rightverticalbannerID = 'R-A-1272944-12';
+    var fullscreenID = 'R-A-1271109-5';
+    var mobilefullscreenID = 'R-A-1271109-6';
+    var horizontalbannerID = 'R-A-1658534-1';
+    var mobilebannerID = 'R-A-1271109-8';
     </script>
 
     <!-- Yandex.RTB -->
@@ -34,30 +33,27 @@
 
     <div class="webgl-content">
 
-    <div id="unityContainer" style="position: relative; width: 55vh; height: 100vh; max-width: 100vw; max-height: 182vw"></div>
+    <div id="unityContainer" style="position:relative; width: 100vw; height: 100vh"></div>
 
       <!-- Full Screen -->
-    <div id="yandex_rtb_R-A-1272944-10" style="position: absolute; top: 16%; width: 55vh; height: 70vh; max-width: 100vw; max-height: 127.4vw; display: none"></div>
+    <div id="yandex_rtb_R-A-1271109-5" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
 
     <!-- Mobile Full Screen -->
-    <div id="yandex_rtb_R-A-1272944-13" style="position: absolute; top: 16%; width: 100vw; height: 70vh; display: none"></div>
+    <div id="yandex_rtb_R-A-1271109-6" style="position: absolute; top: 16%; width: 100vw; height: 67vh; display: none"></div>
+
+    <!-- Horizontal Banner -->
+    <div id="yandex_rtb_R-A-1658534-1" style="position: absolute; bottom: 0;  width: 100vw; height: 10vh; display: none"></div>
 
     <!-- Mobile Banner -->
-    <div id="yandex_rtb_R-A-1272944-14" style="position: absolute; bottom: 0; width: 100vw; height: 10vh; display: none"></div>
+    <div id="yandex_rtb_R-A-1271109-8" style="position: absolute;  bottom: 0; width: 100vw; height: 10vh; display: none"></div>
+
     </div>
-
-    <!-- Left Vertical Banner -->
-    <div id="yandex_rtb_R-A-1272944-8" style="position: fixed; left: 0; width: 55vh; height: 100vh; display: none"></div>
-
-    <!-- Right Vertical Banner -->
-    <div id="yandex_rtb_R-A-1272944-12" style="position: fixed; right: 0; width: 55vh; height: 100vh; display: none"></div>
-
 
     <script type = "text/javascript" language = "javascript">
 
 // Initialization
     function VerticalInitialization() {
-      unityInstance.SendMessage('PlatformManager', 'VerticalInitialization', 1);
+      unityInstance.SendMessage('PlatformManager', 'VerticalInitialization', 0);
     }
 
     function PlayerInitialization() {
@@ -66,15 +62,6 @@
         userLang = "en";
       unityInstance.SendMessage('PlayerManager', 'GetPlayerLanguage', userLang);
       unityInstance.SendMessage('PlayerManager', 'PlayerAuthorized');
-    }
-
-    function ResizeForMobile() {
-      document.getElementById('unityContainer').style.width = window.innerWidth + "px";
-      document.getElementById('unityContainer').style.height = window.innerHeight + "px";
-      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.height = window.innerWidth + "px";
-      //document.getElementById('yandex_rtb_' + mobilefullscreenID).style.height = ((window.innerHeight * 7) / 10) + "px";
-      //document.getElementById('yandex_rtb_' + mobilebannerID).style.height = window.innerWidth + "px";
-      //document.getElementById('yandex_rtb_' + mobilebannerID).style.height = (window.innerHeight / 10) + "px";
     }
 
     // GamePix
@@ -164,23 +151,12 @@
 
 // Banner
     function ShowBanner() {
-      //document.getElementById('yandex_rtb_' + leftverticalbannerID).style.display = 'block';
-      //document.getElementById('yandex_rtb_' + rightverticalbannerID).style.display = 'block';
-      //document.getElementById('yandex_rtb_' + leftverticalbannerID).style.width = ((window.innerWidth - (window.innerHeight * 0.55)) / 2) + "px";
-      //document.getElementById('yandex_rtb_' + rightverticalbannerID).style.width = ((window.innerWidth - (window.innerHeight * 0.55)) / 2) + "px";
-
+      //document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'block';
       //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + leftverticalbannerID,
-        //blockId: leftverticalbannerID,
+        //renderTo: 'yandex_rtb_' + horizontalbannerID,
+        //blockId: horizontalbannerID,
         //onError: (data) => {
           unityInstance.SendMessage('AdsManager', 'CloseBanner');
-        //}
-      //});
-      //Ya.Context.AdvManager.render({
-        //renderTo: 'yandex_rtb_' + rightverticalbannerID,
-        //blockId: rightverticalbannerID,
-        //onError: (data) => {
-          //unityInstance.SendMessage('AdsManager', 'CloseBanner');
         //}
       //})
     }
@@ -197,26 +173,12 @@
     }
 
     function CloseBanner() {
-      document.getElementById('yandex_rtb_' + leftverticalbannerID).style.display = 'none';
-      document.getElementById('yandex_rtb_' + rightverticalbannerID).style.display = 'none';
+      document.getElementById('yandex_rtb_' + horizontalbannerID).style.display = 'none';
     }
 
     function CloseMobileBanner() {
       document.getElementById('yandex_rtb_' + mobilebannerID).style.display = 'none';
     }
-
-    //Vertical Resize
-    document.addEventListener("DOMContentLoaded", function(event)
-    {
-    window.onresize = function() {
-        ResizeBanners();
-        };
-    });
-
-    function ResizeBanners() {
-      unityInstance.SendMessage('AdsManager', 'ResizeBanners');
-    }
-
   </script>
 
   </body>
